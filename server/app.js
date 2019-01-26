@@ -1,11 +1,12 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const app = express();
-const schmea = require('./schema/schema');
+const schema = require('./schema/schema');
 
 app.use('/graphql', graphqlHTTP({
 	//similar to schema:schema
-	schema
+	schema,
+	graphiql: true
 }));
 
 app.listen(3000, ()=>{
