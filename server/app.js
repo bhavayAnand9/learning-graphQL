@@ -1,25 +1,27 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
-const app = express();
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-//allow cross origin requests
+const app = express();
+
+// allow cross-origin requests
 app.use(cors());
 
-mongoose.connect("mongodb://bhavayAnand9:qazPLM2222@ds135800.mlab.com:35800/graphql-project")
-
-mongoose.connection.once('open', ()=>{
-	console.log('connected to db');
+// connect to mlab database
+// make sure to replace my db string & creds with your own
+mongoose.connect('mongodb://bhavayAnand9:qazPLM2222@ds135800.mlab.com:35800/graphql-project')
+mongoose.connection.once('open', () => {
+    console.log('conneted to database');
 });
 
+// bind express with graphql
 app.use('/graphql', graphqlHTTP({
-	//similar to schema:schema
-	schema,
-	graphiql: true
+    schema,
+    graphiql: true
 }));
 
-app.listen(4000, ()=>{
-	console.log('port 4000');
-})
+app.listen(4000, () => {
+    console.log('now listening for requests on port 4000');
+});
